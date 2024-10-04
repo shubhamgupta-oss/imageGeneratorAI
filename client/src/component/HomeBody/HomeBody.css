@@ -1,0 +1,29 @@
+.homeBodyMain{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+    width: 98%;
+}
+
+.bodydiv{
+    display: flex;
+    gap: 2rem;
+    font-size:medium;
+    font-weight: bold;
+    cursor: pointer;
+    
+}
+
+.forHover:hover{
+    padding-bottom: 0.6rem;
+    border-bottom: 4px solid skyblue;
+    transition: all 0.3s ease;
+}
+
+.forHover.active {
+    padding-bottom: 0.6rem;
+    border-bottom: 4px solid skyblue;
+    
+}
