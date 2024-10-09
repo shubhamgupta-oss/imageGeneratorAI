@@ -12,10 +12,18 @@ const ImgView = () => {
         const link = document.createElement('a');
         link.href = imgUrl; 
         link.download = prompt ? `${prompt}.png` : 'download.png'; 
-
         document.body.appendChild(link); 
         link.click(); 
         document.body.removeChild(link); 
+    };
+
+    const handleShare = () => {
+        navigator.clipboard.writeText(imgUrl).then(() => {
+            alert("URL copied to clipboard!");
+        }).catch(err => {
+            console.error('Could not copy text: ', err);
+        });
+       
     };
 
     return (
@@ -31,7 +39,7 @@ const ImgView = () => {
                     <span> size</span>
                 </div>
                 <div className="divButton">
-                    <button><IosShareIcon /> Share</button>
+                    <button onClick={handleShare}><IosShareIcon /> Share</button>
                     <button onClick={handleDownload}><SystemUpdateAltIcon /> Download</button>
                 </div>
                 <hr />
