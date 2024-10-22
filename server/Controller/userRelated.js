@@ -4,21 +4,22 @@ const bcrypt = require('bcrypt');
 
 async function handelRegister(req, res) {
     try {
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) {
+        const { Fname, email, password } = req.body;
+        if (!Fname || !email || !password) {
             return res.status(400).json({
                 message: "Please provide all required fields: name, email, and password."
             });
         }
-
+        
         const foundUser = await User.findOne({ email }); 
         if (foundUser) { 
             return res.status(400).json({
                 message: "The email is already registered."
             });
         }
+
         const hashedPassword = await bcrypt.hash(password, 10);
-        const createdUser = await User.create({ name, email, password:hashedPassword });
+        const createdUser = await User.create({ Fname, email, password:hashedPassword });
         const token = await getUser(createdUser);
         return res.status(201).json({ 
             message: "User registered successfully", 

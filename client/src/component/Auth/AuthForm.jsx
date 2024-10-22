@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import './Auth.css';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/authSlice';
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [checkPasswordMatch, setmatchePass] = useState(true);
+  const [checkPasswordMatch, setMatchPass] = useState(true);
+  const [fnameMsg, setFnameMsg] = useState(false);
+  const [passwordInput, setPasswordInput] = useState(false);
+  const [emailInput, setemailInput] = useState(false);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();  
 
   const [formData, setFormData] = useState({
     Fname: '',
@@ -16,54 +24,84 @@ const AuthForm = () => {
     confirmPassword: ''
   });
 
-  
-  const handleChange = (e) => { 
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value
     });
+    if (name === 'Fname' && value) {
+      setFnameMsg(false);
+    }
   };
 
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData); // For debugging
 
-    // Reset form fields
+    const validateInputs = () => {
+      if (!formData.email) {
+        setemailInput(true);
+        return false;
+      }
+      if (!formData.password) {
+        setPasswordInput(true);
+        return false;
+      }
+      if (!isLogin && !formData.Fname) {  // Make sure this only applies when registering
+        setFnameMsg(true);
+        return false;
+      }
+      return true;
+    };
+
+    if (!validateInputs()) return;
+
+    const endpoint = isLogin
+      ? 'http://localhost:3001/api/login'
+      : 'http://localhost:3001/api/register';
+
+    try {
+      const response = await axios.post(endpoint, formData);
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        dispatch(login(response.data.token));  // Use dispatch here
+      }
+      console.log(isLogin ? 'User Logged IN:' : 'User registered:', response.data);
+      
+      navigate("/home");
+    } catch (error) {
+      console.error('Error:', error.response?.data?.message || error.message);
+    }
     setFormData({
       Fname: '',
       username: '',
       email: '',
       password: '',
-      confirmPassword: '' 
+      confirmPassword: ''
     });
-
-    navigate("/home");  // Navigate after submission
+    setPasswordInput(false);
+    setemailInput(false);
+    setFnameMsg(false);
   };
 
-  // Handle toggling between login and registration
   const handleClickMe = () => {
     setIsLogin(!isLogin);
+    setFnameMsg(false);
+    setMatchPass(true);
   };
 
-  // Password matching function,
   function checkPassword(e) {
     const { value } = e.target;
-    
-    // Update formData for confirmPassword
+
     setFormData({
       ...formData,
       confirmPassword: value
     });
 
-    // Check if passwords match
     if (formData.password === value) {
-    //   console.log("Passwords match:", value);
-      setmatchePass(true);  // Passwords match
+      setMatchPass(true);
     } else {
-    //   console.log("Passwords do not match");
-      setmatchePass(false);  // Passwords don't match
+      setMatchPass(false);
     }
   }
 
@@ -73,59 +111,76 @@ const AuthForm = () => {
       <form className="formMain" onSubmit={handleSubmit}>
         {!isLogin && (
           <>
-            <input 
-              type="text"  
+            <input
+              type="text"
               name="Fname"
               value={formData.Fname}
-              onChange={handleChange} 
-              placeholder="Enter Your Name" 
+              onChange={handleChange}
+              placeholder="Enter Your Name"
             />
+            {fnameMsg && <p style={{ color: 'red' }}>Name is required</p>}
 
-            <input 
-              type="text" 
+            <input
+              type="text"
               name="username"
               value={formData.username}
-              onChange={handleChange} 
-              placeholder="Enter Your Username" 
+              onChange={handleChange}
+              placeholder="Enter Your Username"
             />
           </>
         )}
 
-        <input 
-          type="email" 
+        <input
+          type="email"
           name="email"
           value={formData.email}
-          onChange={handleChange} 
-          placeholder="Enter your email" 
+          onChange={handleChange}
+          placeholder="Enter your email"
         />
+        {emailInput && <div style={{ color: 'red' }}>Email is required</div>}
 
-        <input 
-          type="password" 
+        <input
+          type="password"
           name="password"
           value={formData.password}
-          onChange={handleChange} 
-          placeholder="Enter your Password" 
+          onChange={handleChange}
+          placeholder="Enter your Password"
         />
+        {passwordInput && <div style={{ color: 'red' }}>Password is required</div>}
 
         {!isLogin && (
           <>
-            <input 
-              type="password" 
-              placeholder="Confirm Your Password" 
+            <input
+              type="password"
+              placeholder="Confirm Your Password"
               value={formData.confirmPassword}
-              onChange={checkPassword} 
+              onChange={checkPassword}
             />
-            {!checkPasswordMatch && <p style={{ color: 'red' }}>Passwords do not match</p>}  {/* Display error message if passwords don't match */}
+            {!checkPasswordMatch && (
+              <p style={{ color: 'red' }}>Passwords do not match</p>
+            )}
           </>
         )}
 
-        <div className="notemsg"> 
-          {isLogin ? 
-            <>If not registered, <span onClick={handleClickMe} style={{ cursor: 'pointer' }}>click here</span></> 
-            : <>Already have an account? <span onClick={handleClickMe} style={{ cursor: 'pointer' }}>Click me</span></>}
+        <div className="notemsg">
+          {isLogin ? (
+            <>
+              If not registered,{" "}
+              <span onClick={handleClickMe} style={{ cursor: "pointer" }}>
+                click here
+              </span>
+            </>
+          ) : (
+            <>
+              Already have an account?{" "}
+              <span onClick={handleClickMe} style={{ cursor: "pointer" }}>
+                Click me
+              </span>
+            </>
+          )}
         </div>
 
-        <button className="submitHandel"> 
+        <button className="submitHandel">
           <AutoAwesomeIcon /> {isLogin ? "Login" : "Register"}
         </button>
       </form>

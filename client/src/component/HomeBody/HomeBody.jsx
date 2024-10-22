@@ -4,6 +4,7 @@ import LatestGenrated from "../LatestGenrated/LatestGenrated";
 import YourWork from "../YourWork/YourWork";
 const HomeBody = () =>{
     const [activeTab, setActiveTab] = useState("latestGenerated");
+    const token = localStorage.getItem('token');
 
     function handelTabClick(tabname){
         setActiveTab(tabname);
@@ -12,7 +13,11 @@ const HomeBody = () =>{
 
     return(
         <>
-         <div className="homeBodyMain">
+
+        {
+            token 
+            ?
+            <div className="homeBodyMain">
             <div className="bodydiv">
             <span className={`forHover ${activeTab ==="latestGenerated" ? "active" : ""}`} onClick={ () => handelTabClick("latestGenerated")} >Latest Genrated</span>
             <span className={`forHover ${activeTab ==="yourwork" ? "active" : ""}`} onClick={() => handelTabClick("yourwork")} >Your Work</span>
@@ -21,7 +26,10 @@ const HomeBody = () =>{
             <div className="bodydiv">
             <span className="forHover">Help</span>
             </div>
-        </div>
+            </div>
+            : ""
+        }
+        
 
         <div className="tabCont">
             {activeTab === "latestGenerated" && <LatestGenrated/>} 

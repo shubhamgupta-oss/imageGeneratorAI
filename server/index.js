@@ -15,5 +15,6 @@ app.use("/api", loginregister)
 
 connectMongodb("mongodb://localhost:27017/imageCreator").then(() => console.log("Mongo Connected"))
 .catch(err => console.log(err));;
+console.log(port)
 
 app.listen(port, () => console.log("Server Started"))

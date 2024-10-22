@@ -12,12 +12,14 @@
 }
 
 .heading-left {
+    
     display: flex;
     align-items: center; 
     flex: 1 1 auto; /* Allow flexibility in width */
 }
 
 .heading-left span {
+    cursor: pointer;
     margin-left: 10px;
 }
 

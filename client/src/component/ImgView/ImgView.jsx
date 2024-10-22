@@ -3,8 +3,34 @@ import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import IosShareIcon from '@mui/icons-material/IosShare';
 import { useLocation } from "react-router-dom";
 import './ImgView.css';
+   
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../redux/authSlice";
+
 
 const ImgView = () => {
+
+ 
+
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        
+        const token = localStorage.getItem('token');
+        if (token) {
+          dispatch(login(token));
+        }
+        else{
+            navigate("/")
+        }
+      }, [dispatch]);
+
+
+
     const location = useLocation();
     const { prompt, imgUrl } = location.state || {};
 

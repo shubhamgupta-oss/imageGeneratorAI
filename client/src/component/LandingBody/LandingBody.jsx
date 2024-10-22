@@ -4,8 +4,28 @@ import './LandingBody.css';
 import DescribeCTA from "../DescribeCTA/DescribeCTA";
 import ButtonCTA from "../ButtonCTA/ButtonCTA";
 import DisplayImage from "../DisplayImage/DisplayImage";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../redux/authSlice";
 
 const LandingBody = () => {
+
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        
+        const token = localStorage.getItem('token');
+        if (token) {
+          dispatch(login(token));
+        }
+        else{
+            navigate("/")
+        }
+      }, [dispatch]);
+
     return (
         <div className="main-LandingBody">
             <div className="firstpart">

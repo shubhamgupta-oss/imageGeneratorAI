@@ -1,7 +1,7 @@
 import './App.css';
 import Nav from './component/Navbar/Nav.jsx';
-import Footer from './Footer/Footer.jsx';
-import { Outlet, useLocation } from 'react-router-dom';
+import Footer from './component/Footer/Footer.jsx';
+import { Outlet } from 'react-router-dom';
 
 function App() {
  
