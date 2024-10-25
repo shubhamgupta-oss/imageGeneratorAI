@@ -1,5 +1,5 @@
-const express = require('express')
-const {handelRegister, handelLogin} = require("../Controller/userRelated.js")
+import { handelRegister, handelLogin } from '../Controller/userRelated.js';
+import express from 'express';
 
 const router = express.Router();
 
@@ -7,4 +7,4 @@ router.post('/register', handelRegister)
 router.post('/login', handelLogin )
 
 
-module.exports = router; 
+export default router; 

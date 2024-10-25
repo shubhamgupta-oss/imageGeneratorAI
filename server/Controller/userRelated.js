@@ -1,6 +1,6 @@
-const User = require('../models/user.js'); 
-const {getUser} = require('../HelperFunction/Jwtokens.js')
-const bcrypt = require('bcrypt');
+import User from '../models/user.js';
+import { getUser } from '../HelperFunction/Jwtokens.js';
+import bcrypt from 'bcrypt';
 
 async function handelRegister(req, res) {
     try {
@@ -17,12 +17,14 @@ async function handelRegister(req, res) {
                 message: "The email is already registered."
             });
         }
+        let name = Fname
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const createdUser = await User.create({ Fname, email, password:hashedPassword });
+        const createdUser = await User.create({ name, email, password:hashedPassword });
         const token = await getUser(createdUser);
         return res.status(201).json({ 
             message: "User registered successfully", 
+            name:createdUser.name,
             token 
         });
 
@@ -50,6 +52,7 @@ async function handelLogin(req, res) {
     const token = await getUser(dbUser);
     return res.status(200).json({ 
         message: "User LogedIn successfully", 
+        name:dbUser.name,
         token 
     }); 
    }catch (error){
@@ -63,9 +66,4 @@ async function handelLogin(req, res) {
 }
 
 
-
-
-module.exports = {
-    handelLogin,
-    handelRegister
-};
+export { handelLogin, handelRegister };

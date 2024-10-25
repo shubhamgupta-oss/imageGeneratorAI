@@ -64,7 +64,9 @@ const AuthForm = () => {
       const response = await axios.post(endpoint, formData);
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
-        dispatch(login(response.data.token));  // Use dispatch here
+        localStorage.setItem('name', response.data.name);
+
+        dispatch(login(response.data.token)); 
       }
       console.log(isLogin ? 'User Logged IN:' : 'User registered:', response.data);
       

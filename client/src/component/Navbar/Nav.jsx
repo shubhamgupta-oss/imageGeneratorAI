@@ -10,6 +10,7 @@ const Nav = () => {
     let user = useSelector((state) => state.auth.isLogIn);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const name = localStorage.getItem('name');
 
     function redirecttoLogin(){
         navigate("/")
@@ -24,6 +25,7 @@ const Nav = () => {
     }
     function userlogut() {
         localStorage.removeItem("token");
+        localStorage.removeItem("name");
         dispatch(logout());
         navigate('/');
     }
@@ -40,6 +42,7 @@ const Nav = () => {
             {
                 user ? (
                     <div className="navUser">
+                         {name ? `Welcome : ${name}` : ""}
                         <button className="navCTA" onClick={redirecttoCreatepage}>Create Image</button>
                         <button className="navCTA" onClick={userlogut}>LogOut</button>
                        
