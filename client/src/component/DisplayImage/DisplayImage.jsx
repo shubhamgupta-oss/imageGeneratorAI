@@ -1,32 +1,59 @@
-// import _default from "@emotion/styled";
-import React from "react";
- const DisplayImage = () =>{
-    return (
-        
-        <div className="secondPart">
-        <div className="imageContainer">
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-<div className="displayWork">
-    <img src="https://i.pinimg.com/736x/1b/d7/ff/1bd7fffeb336d474cad19212469bc39b.jpg" alt="" />
-<div className="hoverContent">This image is created by Shubham AI</div>
-</div>
+const DisplayImage = () => {
+  const [data, setData] = useState([]);
 
-    <div className="displayWork">
-    <img src="https://www.dreamstale.com/wp-content/uploads/2023/08/AI-Futuristic-Landscape-8.jpg" alt="" />
-    <div className="hoverContent">This image is created by Shubham AI</div>
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/allImages");
+        const limitedImages = response.data.data.slice(0, 4); 
+        setData(limitedImages);
+        console.log(limitedImages);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
+
+    fetchImages();
+  }, []);
+
+  return (
+    <div className="secondPart">
+      <div className="imageContainer">
+        {data[0] && (
+          <div className="displayWork">
+            <img src={data[0].images} alt={`Image 1`} />
+            <div className="hoverContent">{data[0].title}</div>
+          </div>
+        )}
+
+        {data[1] && (
+          <div className="displayWork">
+            <img src={data[1].images} alt={`Image 2`} />
+            <div className="hoverContent">{data[1].title}</div>
+          </div>
+        )}
+      </div>
+
+      <div className="imageContainer">
+        {data[2] && (
+          <div className="displayWork">
+            <img src={data[2].images} alt={`Image 3`} />
+            <div className="hoverContent">{data[2].title}</div>
+          </div>
+        )}
+
+        {data[3] && (
+          <div className="displayWork">
+            <img src={data[3].images} alt={`Image 4`} />
+            <div className="hoverContent">{data[3].title}</div>
+          </div>
+        )}
+      </div>
     </div>
-</div>
-<div className="imageContainer">
-<div className="displayWork">
-    <img src="https://img.freepik.com/premium-photo/serene-natural-background-depicting-peaceful-landscape-scenery-ai-generated_523886-6982.jpg" alt="" />
-    <div className="hoverContent">This image is created by Shubham AI</div>
-    </div>
-<div className="displayWork"><img src="https://c4.wallpaperflare.com/wallpaper/279/131/736/ai-art-illustration-landscape-hd-wallpaper-preview.jpg" alt="" />
-<div className="hoverContent">This image is created by Shubham AI</div>
-</div>
-</div>
-</div>
-    )
- }
+  );
+};
 
- export default DisplayImage;
+export default DisplayImage;

@@ -3,8 +3,11 @@ import './Button.css';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 const ButtonCTA = (props) => {
+
+
     return (
-        <button type="button" className="cta-button">
+        <button onClick={()=>console.log(props)}  type="button" className="cta-button">
+        
         <AutoAwesomeIcon/>{props.value}
         </button>
     );

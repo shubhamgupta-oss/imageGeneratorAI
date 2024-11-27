@@ -1,11 +1,21 @@
 .mainLatest {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.img-grid {
+    padding: 20px;
+  }
+  
+  .img-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-}
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));  
+    gap: 10px;  
+  }
+  
+  .displayWork {
+   
+    width: 100%; 
+  }
+  
+  img {
+    width: 100%;  
+    height: auto; 
+    border-radius: 10px; 
+  }
+  

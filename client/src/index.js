@@ -7,6 +7,7 @@ import LandingBody from './component/LandingBody/LandingBody.jsx';
 import Auth from './component/Auth/Auth.jsx';
 import Home from './component/Home/Home.jsx';
 import ImgView from './component/ImgView/ImgView.jsx';
+import NotFound from './component/404/NotFound.jsx';
 import { Provider } from 'react-redux';
 import store from './redux/store.js'; 
 
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
       <Route path='home' element={<Home />} />
       <Route path='landingpage' element={<LandingBody />} />
       <Route path='Image' element={<ImgView />} />
+      <Route path='*' element={<NotFound />} />
     </Route>
   )
 );

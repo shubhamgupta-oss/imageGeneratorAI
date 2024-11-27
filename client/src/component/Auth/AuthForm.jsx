@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/authSlice';
+import { toast } from "react-toastify";
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -37,54 +38,61 @@ const AuthForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Function to validate inputs
     const validateInputs = () => {
+      let isValid = true;
       if (!formData.email) {
         setemailInput(true);
-        return false;
+        isValid = false;
       }
       if (!formData.password) {
         setPasswordInput(true);
-        return false;
+        isValid = false;
       }
-      if (!isLogin && !formData.Fname) {  // Make sure this only applies when registering
+      if (!isLogin && !formData.Fname) { 
         setFnameMsg(true);
-        return false;
+        isValid = false;
       }
-      return true;
+      return isValid;
     };
-
-    if (!validateInputs()) return;
-
+  
+    if (!validateInputs()) return; // Stop execution if validation fails
+  
     const endpoint = isLogin
-      ? 'http://localhost:3001/api/login'
-      : 'http://localhost:3001/api/register';
-
+      ? "http://localhost:3001/api/login"
+      : "http://localhost:3001/api/register";
+  
     try {
       const response = await axios.post(endpoint, formData);
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('name', response.data.name);
-
-        dispatch(login(response.data.token)); 
+  
+      if (response.status === 200 || response.status === 201) {
+        toast.success(response.data.message || (isLogin ? "Login successful!" : "Registration successful!"));
+  
+        if (response.data.token) {
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("name", response.data.name);
+          dispatch(login(response.data.token)); 
+        }
+        navigate("/home");
       }
-      console.log(isLogin ? 'User Logged IN:' : 'User registered:', response.data);
-      
-      navigate("/home");
     } catch (error) {
-      console.error('Error:', error.response?.data?.message || error.message);
+      console.error("Error:", error.response?.data?.message || error.message);
+      toast.error(error.response?.data?.message || "User Is Not Register In DB, Or Try after some time");
+    } finally {
+      setFormData({
+        Fname: "",
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+      setPasswordInput(false);
+      setemailInput(false);
+      setFnameMsg(false);
     }
-    setFormData({
-      Fname: '',
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    });
-    setPasswordInput(false);
-    setemailInput(false);
-    setFnameMsg(false);
   };
+  
 
   const handleClickMe = () => {
     setIsLogin(!isLogin);

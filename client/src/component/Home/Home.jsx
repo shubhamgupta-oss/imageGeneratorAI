@@ -6,10 +6,12 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/authSlice'; 
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const Home = () => {
 
     const [queries, setQueries] = useState("");
+    const [loading, setloading] = useState("");
     const dispatch = useDispatch();
     const token = localStorage.getItem('token');
     
@@ -29,7 +31,8 @@ const Home = () => {
         setQueries(value);
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
+        const response = await axios.get("", queries);        
         console.log("Submitted query:", queries);
         setQueries("")
     }
@@ -44,10 +47,10 @@ const Home = () => {
                 type="text" 
                 value={queries}
                 onChange={handleQueries}  
-                placeholder="Write what's on your mind..." 
+                placeholder="What do you think I should look for? Let me know, and I'll search for it here." 
             />
             <button className="homeSearchB" onClick={handleSubmit}> 
-                <TravelExploreIcon /> Create
+                <TravelExploreIcon /> Find
             </button>
         </div>
             
