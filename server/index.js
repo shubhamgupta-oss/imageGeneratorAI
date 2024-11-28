@@ -8,13 +8,13 @@ import cors from 'cors';
 import path from 'path';
 
 
-app.use(express.static(path.join(__dirname, 'build')));
+
 
 
 
 dotenv.config();
 const app = express();
-
+app.use(express.static(path.join(__dirname, 'build')));
 const port = process.env.PORT || 3001;
 
 app.use(cors({
