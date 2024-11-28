@@ -4,11 +4,12 @@ import connectMongodb from './Connection/Mongo.js';
 import loginregister from './Routes/loginregister.js';
 import imagesRelated from './Routes/imagesRoute.js';
 import bodyParser from 'body-parser';
+import cors  from 'cors';
 
 
 dotenv.config();
 const app = express();
-
+app.options('*', cors()) 
 app.use(bodyParser.json());  
 
 const port = process.env.PORT || 3001;
