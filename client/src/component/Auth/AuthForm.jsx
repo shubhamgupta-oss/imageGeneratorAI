@@ -60,8 +60,8 @@ const AuthForm = () => {
     if (!validateInputs()) return; // Stop execution if validation fails
   
     const endpoint = isLogin
-      ? "http://localhost:3001/api/login"
-      : "http://localhost:3001/api/register";
+      ? "process.env.BASE_URL/api/login"
+      : "process.env.BASE_URL/api/register";
   
     try {
       const response = await axios.post(endpoint, formData);
