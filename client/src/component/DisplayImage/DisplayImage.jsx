@@ -7,7 +7,7 @@ const DisplayImage = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("process.env.BASE_URL/api/allImages");
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/allImages`);
         const limitedImages = response.data.data.slice(0, 4); 
         setData(limitedImages);
         console.log(limitedImages);
