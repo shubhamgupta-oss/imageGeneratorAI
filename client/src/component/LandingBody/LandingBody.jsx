@@ -47,7 +47,7 @@ const LandingBody = () => {
         console.log(description);
     
         try {
-            const response = await axios.post("process.env.BASE_URL/api/generateImage", { description });
+            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/generateImage`, { description });
             console.log(response.data); 
     
           
@@ -90,7 +90,7 @@ const LandingBody = () => {
         };
         
         const storeImg = await axios.post(
-            "process.env.BASE_URL/api/postimage",
+            `${process.env.REACT_APP_BASE_URL}/api/postimage`,
             data,
             {
                 headers: { Authorization: `Bearer ${token}` } 
