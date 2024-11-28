@@ -5,6 +5,12 @@ import loginregister from './Routes/loginregister.js';
 import imagesRelated from './Routes/imagesRoute.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+const path = require('path');
+
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+
 
 dotenv.config();
 const app = express();
@@ -27,6 +33,11 @@ app.use("/api", imagesRelated);
 connectMongodb(process.env.MONGO_URL)
   .then(() => console.log("Mongo Connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 
 
 app.use((err, req, res, next) => {
