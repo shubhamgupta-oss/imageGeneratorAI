@@ -28,16 +28,13 @@ ImageGeneratorAI is an AI-powered application that generates custom images based
 ## Installation and Setup
 
 ## Backend Setup:
-1. Clone the repository and navigate to the backend directory:
-    ```bash
-    cd backend
+1. - **Clone** the repository and navigate to the backend directory:
+   cd backend
 
 ## Install dependencies:
-    ```bash
     npm install
 
 ## Create a .env file in the backend directory and add the following configuration:
-    ```bash
     PORT=3001
     MONGO_URL=<Your_MongoDB_URI>
     HUGGING_FACE_API_KEY=<Your_Hugging_Face_API_Key>
@@ -46,34 +43,27 @@ ImageGeneratorAI is an AI-powered application that generates custom images based
     CLOUDINARY_API_SECRET=<Your_Cloudinary_API_Secret>
     
 ## Start the backend server:
-    ```bash
+    
     npm start
     
 ## Frontend Setup:
 ## Navigate to the frontend directory:
-    ```bash
     cd frontend
     
 ## Install dependencies:
-    ```bash
     npm install
     
 Update the API base URL in src/config.js to point to the hosted backend:
 ## javascript
-    ```bash
     export const API_BASE_URL = "https://imagegeneratorai-r9p8.onrender.com/api";
     
 ## Start the frontend development server:
-    ```bash
     npm start
 ## Build for Production:
 ## Create a production build for the frontend:
-    ```bash
     npm run build
     
 ## Deploy the build folder to a static file hosting service or integrate it with the backend.
-
-    ```Deployment
     Frontend: Hosted on Render at ImageGeneratorAI Frontend.
     Backend: Hosted on Render at ImageGeneratorAI Backend.
     Ensure the frontend and backend are properly linked by setting the correct API base URL in the frontend configuration.
