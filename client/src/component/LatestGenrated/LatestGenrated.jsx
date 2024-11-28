@@ -12,7 +12,7 @@ const LatestGenerated = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get("https://imagegeneratorai-r9p8.onrender.com/api/allImages");
+        const response = await axios.get("process.env.BASE_URL/api/allImages");
         const limitedImages = response.data.data;
         setData(limitedImages);
         setLoading(false); 
