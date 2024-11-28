@@ -9,6 +9,7 @@
     outline: none;
     resize: none; 
     height: 110px; 
+    color: white;
 }
 
 .DescribeText::placeholder {
@@ -19,6 +20,5 @@
 
 .DescribeText:focus,
 .DescribeText:active {
-    border-color: white; 
-    background-color: skyblue; 
+    border-color: white;  
 }

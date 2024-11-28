@@ -13,7 +13,6 @@ flex-direction: row;
 align-items: center;
 width: 100%;
 gap: 1rem;
-/* background-color: aqua; */
 }
 
 .inputDiv input{
@@ -43,4 +42,119 @@ gap: 1rem;
     background-color: skyblue;
     color: white;
     border-color: skyblue;
+}
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 900px;
+    width: 90%;
+    overflow-y: auto;
+    position: relative;
+    text-align: center;
+    max-height: 90vh;  
+    box-sizing: border-box;
+}
+
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: skyblue;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+
+.image-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 15px;
+    padding-top: 20px;
+}
+
+
+.image-item img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    max-height: 200px;
+}
+
+.image-item p {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #333;
+}
+
+
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 15px;
+        width: 95%;  
+        max-width: 100%;
+    }
+
+    .close-btn {
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .image-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    }
+
+    .image-item img {
+        max-height: 150px; 
+    }
+
+    .image-item p {
+        font-size: 14px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 100%; 
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .image-container {
+        grid-template-columns: 1fr; 
+    }
+
+    .image-item img {
+        max-height: 120px; 
+    }
+
+    .image-item p {
+        font-size: 12px; 
+    }
+
+    .close-btn {
+        font-size: 14px; 
+        padding: 6px;
+    }
 }

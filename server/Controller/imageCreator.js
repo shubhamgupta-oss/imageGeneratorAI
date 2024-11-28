@@ -36,7 +36,6 @@ export const getAllImages = async (req, res) => {
                 }
 
                 const userImages = await Image.find({ user: id }).sort({ createdAt: -1 });
-                console.log(userImages);
                 if (userImages.length === 0) {
                     return res.status(404).json({ msg: "No images found for this user" });
                 }
@@ -83,8 +82,14 @@ export const postImage = async (req, res) => {
 
 export const generateImage = async (req, res) => {
     try {
-        const { description } = req.body;
-        const specialPrompt = `Bollywood actor Amitabh Bachchan inspired images: ${description}`;
+        const { description, selectedCelebrity } = req.body;
+
+        let specialPrompt = null;
+        if (selectedCelebrity) {
+          specialPrompt = `Bollywood actor ${selectedCelebrity} inspired images: ${description}`;
+        } else {
+          specialPrompt = description;
+        }        
         if (!description) {
             return res.status(400).json({ status: "failed", message: "Description is required" });
         }
@@ -107,3 +112,43 @@ export const generateImage = async (req, res) => {
         res.status(500).json({ error: "Error generating image" });
     }
 };
+
+export const getfindimages = async (req, res) => {
+    const { queries } = req.query; 
+    if (!queries) return res.status(400).json({ error: "No query text provided" });
+
+    try {
+        const data = await Image.find({
+            title: new RegExp(queries, "i")
+        });
+        if (data.length === 0) {
+            return res.status(404).json({ msg: "No images found matching the query text" });
+        }
+        res.status(200).json({ msg: "Success", data });
+    } catch (error) {
+        console.error("Error finding images:", error);
+        res.status(500).json({ error: "Error finding images" });
+    }
+}
+export const getimagesID = async (req, res) => {
+    const { id } = req.query; 
+    if (!id) {
+        return res.status(400).json({ error: "No image ID provided" });
+    }
+
+    try {
+        const data = await Image.findOne({
+            _id: id
+        });
+
+        if (!data) {
+            return res.status(404).json({ msg: "No image found with the given ID" });
+        }
+
+        res.status(200).json({ msg: "Success", data });
+    } catch (error) {
+        console.error("Error finding image:", error);
+        res.status(500).json({ error: "Error retrieving image from the database" });
+    }
+};
+

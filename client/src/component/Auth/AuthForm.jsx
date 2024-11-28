@@ -13,6 +13,8 @@ const AuthForm = () => {
   const [fnameMsg, setFnameMsg] = useState(false);
   const [passwordInput, setPasswordInput] = useState(false);
   const [emailInput, setemailInput] = useState(false);
+  const [isCooldown, setIsCooldown] = useState(false);
+  const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
 
   const navigate = useNavigate();
   const dispatch = useDispatch();  
@@ -38,6 +40,8 @@ const AuthForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isCooldown) return;
+    setIsCooldown(true);
   
     // Function to validate inputs
     const validateInputs = () => {
@@ -57,11 +61,11 @@ const AuthForm = () => {
       return isValid;
     };
   
-    if (!validateInputs()) return; // Stop execution if validation fails
+    if (!validateInputs()) return;
   
     const endpoint = isLogin
-      ? `${process.env.REACT_APP_BASE_URL}/api/login`
-      : `${process.env.REACT_APP_BASE_URL}/api/register`;
+      ? `${apiUrl}/api/login`
+      : `${apiUrl}/api/register`;
   
     try {
       const response = await axios.post(endpoint, formData);
@@ -74,12 +78,15 @@ const AuthForm = () => {
           localStorage.setItem("name", response.data.name);
           dispatch(login(response.data.token)); 
         }
+        
         navigate("/home");
+        
       }
     } catch (error) {
       console.error("Error:", error.response?.data?.message || error.message);
       toast.error(error.response?.data?.message || "User Is Not Register In DB, Or Try after some time");
     } finally {
+      setIsCooldown(false);
       setFormData({
         Fname: "",
         username: "",
@@ -191,8 +198,15 @@ const AuthForm = () => {
         </div>
 
         <button className="submitHandel">
-          <AutoAwesomeIcon /> {isLogin ? "Login" : "Register"}
-        </button>
+        {isCooldown ? (
+          "Wait..."
+        ) : (
+          <>
+            <AutoAwesomeIcon /> {isLogin ? "Login" : "Register"}
+          </>
+        )}
+      </button>
+
       </form>
     </div>
   );

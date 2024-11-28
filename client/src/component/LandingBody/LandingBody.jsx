@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import './LandingBody.css';
-
-import DescribeCTA from "../DescribeCTA/DescribeCTA";
-import ButtonCTA from "../ButtonCTA/ButtonCTA";
+import '../DescribeCTA/DescribeCTA.css'
 import DisplayImage from "../DisplayImage/DisplayImage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -12,7 +10,9 @@ import {toast} from 'react-toastify'
 import { ClipLoader } from 'react-spinners';
 import axios from 'axios';
 
+
 const LandingBody = () => {
+    const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
 
     const [description, setdescription] = useState("");
     const [loading, setloading] = useState(false);
@@ -23,6 +23,21 @@ const LandingBody = () => {
     const arr = new Array(5).fill(0);
     const [rating, setRating] = useState(0); 
     const [hover, setHover] = useState(0);  
+    const [isChecked, setIsChecked] = useState(false);
+    const [selectedCelebrity, setSelectedCelebrity] = useState("");
+
+
+    const handleCheckboxChange = () => {
+        setIsChecked((prev) => !prev);
+        setSelectedCelebrity("");
+    };
+
+    const handleCelebrityChange = (e) => {
+        const value = e.target.value;
+        setSelectedCelebrity(value);
+    };
+
+
     const handleStarClick = (index) => {
       setRating(index);
     };
@@ -44,10 +59,10 @@ const LandingBody = () => {
         
         setBox(true);
         setloading(true);
-        console.log(description);
+        
     
         try {
-            const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/generateImage`, { description });
+            const response = await axios.post(`${apiUrl}/api/generateImage`, { description, selectedCelebrity });
             console.log(response.data); 
     
           
@@ -64,6 +79,8 @@ const LandingBody = () => {
             toast.error("Something went wrong! Please Try Again"); 
         } finally {
             setloading(false);
+            setIsChecked(false);
+
              
         }
     }
@@ -73,10 +90,13 @@ const LandingBody = () => {
         setBox(false)
         setRating(0);
         setdescription(""); 
+        setSelectedCelebrity("");
     }
 
     const handeSaveImage = async () =>{
         if(title.length < 10 ) return toast.error("Please add The title name Min 10 Char"); 
+
+        setloading(true);
 
         const token = localStorage.getItem('token')
 
@@ -86,11 +106,11 @@ const LandingBody = () => {
             Rating: rating,
             description:description,
             title,
-            image:sendimage            
+            image:sendimage,           
         };
         
         const storeImg = await axios.post(
-            `${process.env.REACT_APP_BASE_URL}/api/postimage`,
+            `${apiUrl}/api/postimage`,
             data,
             {
                 headers: { Authorization: `Bearer ${token}` } 
@@ -98,11 +118,13 @@ const LandingBody = () => {
         );
 
         toast.success("Your image is succesfully stored");
-        console.log(storeImg);
         setRating(0);
         setdescription(""); 
         setBox(false);
         setTitle("");
+        setSelectedCelebrity("");
+        setIsChecked(false)
+        setloading(false);
         
 
             
@@ -131,6 +153,52 @@ const LandingBody = () => {
                  value={description} 
                  onChange={adddescription} name="" id="" placeholder="Describe what do you like Create" />
                 </div>
+
+
+                <div className="options">
+                <div>
+                    <input
+                    type="checkbox"
+                    id="celebrityCheckbox"
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                    />
+                    <label htmlFor="celebrityCheckbox">
+                    If you want to create an image inspired by your favorite celebrity with
+                    your own text, choose me!
+                    </label>
+                </div>
+
+                {isChecked && (
+                    <div>
+                    <select
+                        value={selectedCelebrity}
+                        onChange={handleCelebrityChange}
+                        className="dropdown"
+                    >
+                        <option value="">Select a celebrity</option>
+                        <option value="Amitabh Bachchan">Amitabh Bachchan</option>
+                        <option value="Shah Rukh Khan">Shah Rukh Khan</option>
+                        <option value="Priyanka Chopra">Priyanka Chopra</option>
+                        <option value="Salman Khan">Salman Khan</option>
+                        <option value="Deepika Padukone">Deepika Padukone</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    {selectedCelebrity === "Other" && (
+                        <input
+                        type="text"
+                        placeholder="Enter celebrity name"
+                        value={selectedCelebrity}
+                        onChange={(e) => setSelectedCelebrity(e.target.value)}
+                        className="customInput"
+                        />
+                    )}
+                    </div>
+                )}
+                </div>
+
+
+
                 <button onClick={handelImageGenration} className="btn-dec">Click me and get</button>
                 <h5>Image Creator helps you generate images based on your words with AI.</h5>
             </div>

@@ -3,11 +3,12 @@ import axios from "axios";
 
 const DisplayImage = () => {
   const [data, setData] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/allImages`);
+        const response = await axios.get(`${apiUrl}/api/allImages`);
         const limitedImages = response.data.data.slice(0, 4); 
         setData(limitedImages);
         console.log(limitedImages);

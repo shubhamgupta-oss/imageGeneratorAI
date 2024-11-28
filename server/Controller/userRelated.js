@@ -66,4 +66,26 @@ async function handelLogin(req, res) {
 }
 
 
-export { handelLogin, handelRegister };
+async function getUserByID(req, res) {
+    const { userid } = req.query;  
+
+    if (!userid) {
+        return res.status(400).json({ error: "User ID is required" });
+    }
+
+    try {
+        const user = await User.findOne({ _id: userid });
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.status(200).json({ msg: "Success", user });
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+
+export { handelLogin, handelRegister,getUserByID };
