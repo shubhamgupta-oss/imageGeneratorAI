@@ -5,7 +5,7 @@ import loginregister from './Routes/loginregister.js';
 import imagesRelated from './Routes/imagesRoute.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-const path = require('path');
+import path from 'path';
 
 
 app.use(express.static(path.join(__dirname, 'build')));
