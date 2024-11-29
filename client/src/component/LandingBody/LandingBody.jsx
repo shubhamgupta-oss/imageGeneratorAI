@@ -25,6 +25,8 @@ const LandingBody = () => {
     const [hover, setHover] = useState(0);  
     const [isChecked, setIsChecked] = useState(false);
     const [selectedCelebrity, setSelectedCelebrity] = useState("");
+    const [selectedOther, setselectedOther] = useState("");
+    
 
 
     const handleCheckboxChange = () => {
@@ -35,6 +37,10 @@ const LandingBody = () => {
     const handleCelebrityChange = (e) => {
         const value = e.target.value;
         setSelectedCelebrity(value);
+        if(selectedCelebrity === "Other"){
+            setSelectedCelebrity(selectedOther);
+        }
+        
     };
 
 
@@ -188,8 +194,8 @@ const LandingBody = () => {
                         <input
                         type="text"
                         placeholder="Enter celebrity name"
-                        value={selectedCelebrity}
-                        onChange={(e) => setSelectedCelebrity(e.target.value)}
+                        value={selectedOther}
+                        onChange={(e) => setselectedOther(e.target.value)}
                         className="customInput"
                         />
                     )}
