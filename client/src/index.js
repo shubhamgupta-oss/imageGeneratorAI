@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
+import { createHashRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import LandingBody from './component/LandingBody/LandingBody.jsx';
 import Auth from './component/Auth/Auth.jsx';
 import Home from './component/Home/Home.jsx';
@@ -13,7 +13,7 @@ import store from './redux/store.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const router = createBrowserRouter(
+const router = createHashRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route path='' element={<Auth />} />
