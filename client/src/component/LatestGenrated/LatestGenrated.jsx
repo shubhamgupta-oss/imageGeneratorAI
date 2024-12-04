@@ -52,24 +52,25 @@ const LatestGenerated = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (!hasMore || loading) return;
-
-      const scrollTop = document.documentElement.scrollTop;
+  
+      const scrollTop = window.scrollY; // Use window.scrollY for mobile devices
       const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
-
+      const clientHeight = window.innerHeight; // Use window.innerHeight for viewport height
+  
       if (scrollTop + clientHeight >= scrollHeight - 10) {
         setPage(prev => prev + 1); // Increment page number when near bottom
       }
     };
-
+  
     if (hasMore) {
       window.addEventListener("scroll", handleScroll);
     } else {
       window.removeEventListener("scroll", handleScroll); // Cleanup listener when no more data
     }
-
+  
     return () => window.removeEventListener("scroll", handleScroll); // Cleanup on unmount
   }, [hasMore, loading]); // Dependency array ensures this effect runs when `hasMore` or `loading` changes
+  
 
   if (loading && data.length === 0) {
     return (
