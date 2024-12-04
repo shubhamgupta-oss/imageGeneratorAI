@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './LandingBody.css';
-import '../DescribeCTA/DescribeCTA.css'
+// import '../DescribeCTA/DescribeCTA.css'
 import DisplayImage from "../DisplayImage/DisplayImage";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";

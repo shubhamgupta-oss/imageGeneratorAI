@@ -1,42 +1,77 @@
 import '../LatestGenrated/LatestGenrated.css';
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ImgCard from "../ImgCard/ImgCard";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
-import { toast } from 'react-toastify'; 
+import { toast } from 'react-toastify';
 
 const LatestGenerated = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);  
-  const [error, setError] = useState(null);  
+  const [data, setData] = useState([]); // Store loaded images
+  const [loading, setLoading] = useState(false); // Track loading state
+  const [error, setError] = useState(null); // Track errors
+  const [page, setPage] = useState(1); // Current page for API
+  const [hasMore, setHasMore] = useState(true); // Whether there are more images to fetch
   const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3001";
 
+  // Fetch images function
+  const fetchImages = async () => {
+    if (!hasMore || loading) return; // Stop if already loading or no more data
+
+    setLoading(true);
+    try {
+      const response = await axios.get(`${apiUrl}/api/allImages`, {
+        params: { page, limit: 10 }, // Pass page and limit
+      });
+
+      const newImages = response.data.data;
+      const totalPages = response.data.totalPages;
+
+      setData(prev => [...prev, ...newImages]); // Append new images to existing data
+
+      if (page >= totalPages || newImages.length === 0) {
+        setHasMore(false); // Stop further requests when no more data
+        toast.info("All images loaded");
+      }
+    } catch (err) {
+      console.error("Error fetching images:", err);
+      setError("Error fetching images. Please try again later.");
+      toast.error("Error fetching images. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Load images when page changes
   useEffect(() => {
-    const fetchImages = async () => {
-      const token = localStorage.getItem('token');
-      try {
-        const response = await axios.get(`${apiUrl}/api/allImages`);
+    fetchImages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page]); // Run only when the `page` changes
 
-        if (response.data.data.length === 0) {
-          toast.info("No images available to display");
-        }
+  // Handle scroll event
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!hasMore || loading) return;
 
-        setData(response.data.data);
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
 
-        setLoading(false);
-      } catch (error) {
-        setError("Error fetching images. Please try again later.");
-        setLoading(false);
-        console.error("Error fetching images:", error);
-        toast.error("Error fetching images. Please try again later.");
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        setPage(prev => prev + 1); // Increment page number when near bottom
       }
     };
 
-    fetchImages();
-  }, []);
+    if (hasMore) {
+      window.addEventListener("scroll", handleScroll);
+    } else {
+      window.removeEventListener("scroll", handleScroll); // Cleanup listener when no more data
+    }
 
-  if (loading) {
+    return () => window.removeEventListener("scroll", handleScroll); // Cleanup on unmount
+  }, [hasMore, loading]); // Dependency array ensures this effect runs when `hasMore` or `loading` changes
+
+  if (loading && data.length === 0) {
     return (
       <div className="loadingText">
         <ClipLoader color="white" loading={loading} size={50} />
@@ -45,7 +80,7 @@ const LatestGenerated = () => {
   }
 
   if (error) {
-    return <div className="error-message">{error}</div>; 
+    return <div className="error-message">{error}</div>;
   }
 
   return (
@@ -64,9 +99,11 @@ const LatestGenerated = () => {
             </Link>
           ))
         ) : (
-          <div>No images available</div> 
+          <div>No images available</div>
         )}
       </div>
+      {loading && <div className="loadingText"><ClipLoader color="white" size={30} /></div>}
+      {!hasMore && <div className="end-message">No more images to display</div>} {/* End message */}
     </div>
   );
 };

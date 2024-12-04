@@ -1,20 +1,29 @@
+/* Main navigation container */
 .main-nav {
     background-color: #282c34;
     display: flex;
     flex-direction: row;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
     padding: 15px;
     font-weight: bold;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     border-radius: 1rem;
     width: 100%;
 }
 
+
+@media (max-width: 768px) {
+    .main-nav {
+        flex-direction: column; /* Stack navbar items vertically on smaller screens */
+    }
+}
+
+
+/* Left section of the navbar (Logo & heading) */
 .heading-left {
-    
     display: flex;
-    align-items: center; 
+    align-items: center;
     flex: 1 1 auto; /* Allow flexibility in width */
 }
 
@@ -27,48 +36,36 @@ span:nth-last-child(1) {
     color: skyblue;
 }
 
-.navUser{
+/* User-specific navigation links */
+.navUser {
     display: flex;
     flex-direction: row;
     margin-right: 2rem;
     align-items: center;
     gap: 0.8rem;
 }
-.LogedUser{
+
+/* Logged-in user icon (circle) styling */
+.LogedUser {
     background-color: skyblue;
     width: 1.5rem;
     height: 1.5rem;
-    border-radius: 50%;;
-   
+    border-radius: 50%;
     text-align: center;
 }
 
-
-@media (max-width: 360px) {
-    .main-nav {
-        flex-direction: column; /* Stack items vertically on smaller screens */
-        align-items: flex-start; /* Align items to the left */
-        background-color:aliceblue;
-    }
-
-    .heading-left {
-        margin-bottom: 10px; 
-    }
-
-    .heading-left span {
-        margin-left: 10; 
-    }
-}
+/* Navigation buttons container */
 .navButtonHed {
     display: flex;
     gap: 1rem;
     margin-right: 2rem;
 }
 
+/* CTA button styling (Create Image, Log Out, etc.) */
 .navCTA {
     display: flex;
     justify-content: center;
-    align-items: center;  
+    align-items: center;
     border-radius: 1rem;
     padding: 0.6rem;
     width: 150px;
@@ -78,12 +75,108 @@ span:nth-last-child(1) {
     color: white;
     background-color: skyblue;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.navCTA:hover{
+.navCTA:hover {
     background-color: white;
     color: skyblue;
     width: 200px;
     transition: all 1s ease;
+}
 
+/* Media Queries */
+
+/* For screens smaller than 768px (tablets and below) */
+@media (max-width: 768px) {
+    .main-nav {
+        padding: 10px; /* Reduce padding for smaller screens */
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        align-items: flex-start; /* Align items to the left */
+    }
+
+    .heading-left {
+        margin-bottom: 10px;
+        justify-content: center;
+    }
+
+    .heading-left span {
+        margin-left: 5px;
+    }
+
+    .navUser {
+        display: flex;
+        flex-direction: column;
+        margin-right: 0;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .navButtonHed {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .navCTA {
+        width: 100%; /* Make CTA buttons take full width on smaller screens */
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* For screens smaller than 480px (mobile screens) */
+@media (max-width: 480px) {
+    .main-nav {
+        padding: 8px; /* Smaller padding for very small screens */
+    }
+
+    .heading-left {
+        margin-bottom: 8px;
+    }
+
+    .navUser {
+        flex-direction: column;
+        margin-right: 0;
+        gap: 0.5rem;
+    }
+
+    .navButtonHed {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .navCTA {
+        width: 100%; 
+        padding: 0.6rem;
+        font-size: 0.8rem;
+    }
+}
+
+.navUser {
+    display: flex;
+    flex-direction: row;
+    margin-right: 2rem;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.LogedUser {
+    background-color: skyblue;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    text-align: center;
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+    .main-nav {
+        flex-direction: column; /* Stack navbar items vertically on smaller screens */
+    }
+
+    .heading-left {
+        margin-bottom: 10px; 
+    }
 }

@@ -5,16 +5,16 @@ import loginregister from './Routes/loginregister.js';
 import imagesRelated from './Routes/imagesRoute.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import path from 'path';
 import { fileURLToPath } from 'url';
+import path from 'path';
 
-// Resolve __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
+
 const port = process.env.PORT || 3001;
 
 app.use(
@@ -25,6 +25,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 
 app.use(bodyParser.json());
 app.use(express.json());
@@ -39,6 +40,7 @@ connectMongodb(process.env.MONGO_URL)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

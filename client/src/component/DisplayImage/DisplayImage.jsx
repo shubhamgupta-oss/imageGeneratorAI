@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import './DisplayImage.css'
 
 const DisplayImage = () => {
   const [data, setData] = useState([]);

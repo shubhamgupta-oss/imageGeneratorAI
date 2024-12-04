@@ -1,21 +1,92 @@
+/* LatestGenerated.css */
+
+/* Main container */
 .mainLatest {
-    padding: 20px;
-  }
-  
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-height: 100vh;
+}
+
+/* Image grid */
+.img-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust columns for responsive */
+  gap: 15px;
+  width: 100%;
+  max-width: 1200px; /* Optional: Set a maximum width for larger screens */
+  margin: 0 auto;
+  justify-items: center;
+}
+
+/* Individual cards */
+.img-grid a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.img-grid img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+
+.img-grid img:hover {
+  transform: scale(1.05);
+}
+
+/* Loading spinner */
+.loadingText {
+  text-align: center;
+  margin: 20px 0;
+  color: #555;
+}
+
+/* Error message */
+.error-message {
+  color: red;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+/* End message */
+.end-message {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+  margin: 20px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .img-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));  
-    gap: 10px;  
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjust for smaller screens */
+    gap: 10px;
   }
-  
-  .displayWork {
-   
-    width: 100%; 
+}
+
+@media (max-width: 480px) {
+  .img-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Further adjust for very small screens */
   }
-  
-  img {
-    width: 100%;  
-    height: auto; 
-    border-radius: 10px; 
+
+  .loadingText,
+  .error-message,
+  .end-message {
+    font-size: 14px;
+    padding: 0 10px;
   }
-  
+}
+
+/* Mobile navigation tweaks (if applicable) */
+a {
+  font-size: 14px; /* Adjust link font size for mobile */
+}
+
+.img-grid img {
+  border-radius: 5px; /* Softer edges on mobile */
+}

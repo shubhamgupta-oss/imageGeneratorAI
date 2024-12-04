@@ -13,20 +13,34 @@ cloudinary.config({
     api_key: process.env.API_KEY, 
     api_secret: process.env.API_SECRET,
 });
-
-
 export const getAllImages = async (req, res) => {
     try {
-        const images = await Image.find({}).sort({ createdAt: -1 }); // Sorting in descending order of creation
-        if (images.length === 0) {
-            return res.status(404).json({ msg: "Data Not Found" });
-        }
-        return res.status(200).json({ success: true, data: images });
+      const { page = 1, limit = 10 } = req.query; // Extract page and limit from query params
+      const skip = (page - 1) * limit; // Calculate the number of records to skip
+  
+      const total = await Image.countDocuments(); // Total number of documents in the collection
+      const images = await Image.find({})
+        .sort({ createdAt: -1 }) // Sort by creation date (most recent first)
+        .skip(Number(skip)) // Skip records for pagination
+        .limit(Number(limit)); // Limit to specified number of records
+  
+      const totalPages = Math.ceil(total / limit); // Calculate total pages
+  
+      // Return the data and pagination info
+      return res.status(200).json({
+        success: true,
+        data: images,
+        currentPage: Number(page),
+        totalPages,
+        totalRecords: total,
+      });
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ success: false, message: 'Server Error' });
+      console.error("Error fetching images:", error);
+      return res.status(500).json({ success: false, message: 'Server Error' });
     }
-};
+  };
+  
+
         export const getuserimages = async (req, res) => {
             try {
                 const { id } = await req.user; 

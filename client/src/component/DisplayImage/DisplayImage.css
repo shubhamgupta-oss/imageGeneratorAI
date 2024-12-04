@@ -1,0 +1,25 @@
+.DescribeText {
+    display: flex;
+    width: 90%; /* Ensure it takes full width of its container */
+    max-width: 600px; /* Optional, set a max-width for responsive behavior */
+    height: 110px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid skyblue;
+    background-color: transparent;
+    color: white;
+    outline: none;
+    resize: none;
+    transition: border-color 0.3s ease;
+}
+
+.DescribeText::placeholder {
+    color: white;
+    opacity: 1;
+    font-size: larger;
+}
+
+.DescribeText:focus,
+.DescribeText:active {
+    border-color: white;
+}

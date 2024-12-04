@@ -1,297 +1,301 @@
+/* Main layout for the landing page */
 .main-LandingBody {
-    display: flex;
-    flex-direction: row;
-    justify-content: center; 
-    align-items: center;
-    gap: 5rem;
-    width: 90%; 
-    max-width: 1200px; 
-  margin-left: 13%;
-    padding: 8rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem;
 }
 
+/* First section (left part) */
 .firstpart {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    gap: 1rem;
-    
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  gap: 1rem;
 }
 
-.firstpart>h1 {
-    font-size: 2.5rem;
-    color: skyblue;
+.firstpart > h1 {
+  font-size: 2.5rem;
+  color: skyblue;
 }
 
+/* Second section (right part) */
 .secondPart {
-    display: flex;
-    align-items: center;
-    width: 50%;
-    height: 35rem;
-    /* background-color: aliceblue; */
-    gap: 0.8rem;
-    justify-content: center;
-    
+  display: flex;
+  align-items: center;
+  width: 50%;
+  height: 35rem;
+  gap: 0.8rem;
+  justify-content: center;
 }
 
-.imageContainer{
-    display: flex;
-    width: 16rem;
-    height: 35rem;
-    flex-direction: column;
-    gap: 0.1rem;
+/* Image container styling */
+.imageContainer {
+  display: flex;
+  width: 16rem;
+  height: 35rem;
+  flex-direction: column;
+  gap: 0.1rem;
 }
 
-.displayWork{
-    display: flex;
-    width: 100%;
-    height: 100%;
-    padding: 0.3rem;
-    /* background-color: skyblue; */
-    border-radius: 0.1rem; 
+/* Individual image block */
+.displayWork {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 0.3rem;
+  border-radius: 0.1rem;
 }
 
-.displayWork img{
-    max-width: 100%; 
-    max-height: 100%; 
-    border-radius: 10px; 
-    object-fit: cover; 
+.displayWork img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
-.hoverContent{
-    max-width: 100%; 
-    max-height: 100%; 
-    background-color: transparent;
-    margin-left: -100%;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    opacity: 0; 
-    visibility: hidden;
-    text-align: center;
-    /* transition: background-color 0.3s ease, opacity 0.3s ease; */
-    font-weight: bold;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+/* Hover effect for images */
+.hoverContent {
+  max-width: 100%;
+  max-height: 100%;
+  background-color: transparent;
+  margin-left: -100%;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  opacity: 0;
+  visibility: hidden;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .displayWork:hover .hoverContent {
-    opacity: 1;
-    visibility: visible;
-    width: 100%;
-    height: 90%;
-    background-color: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  visibility: visible;
+  width: 100%;
+  height: 90%;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
+/* Button styling */
 .btn-dec {
-    padding: 0.75rem 1rem; 
-    width: 96%;
-    border-radius: 0.5rem;
-    border: none;
-    color: white;
-    background-color: blue;
-    font-size: 1rem; 
-    font-weight: bold; 
-    align-items: center;
-    transition: background-color 0.4s ease, color 0.4s ease, border 0.4s ease; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  padding: 0.75rem 1rem;
+  width: 96%;
+  border-radius: 0.5rem;
+  border: none;
+  color: white;
+  background-color: blue;
+  font-size: 1rem;
+  font-weight: bold;
+  align-items: center;
+  transition: background-color 0.4s ease, color 0.4s ease, border 0.4s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-dec:hover {
-    background-color: white;
-    border: 2px solid blue;
-    color: blue;
-    transform: translateY(-2px);
+  background-color: white;
+  border: 2px solid blue;
+  color: blue;
+  transform: translateY(-2px);
 }
 
 .btn-dec:active {
-    transform: translateY(0); 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.781); 
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.781);
 }
 
-.loadingText{
-    color: white;
-    display: flex;
-    align-items: center;
-    font-size: 50px;
-    justify-content: center;
-   /* margin-left: 50%; */
-
+/* Loading text */
+.loadingText {
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 50px;
+  justify-content: center;
 }
+
+/* Star rating icon */
 .StarDiv {
-    display: flex;
-    align-items: center;
-    font-size: 30px;
-    cursor: pointer;
-  }
-  
-  .colored {
-    color: gold;
-    transition: color 0.3s ease;
-  }
-    
-.genratedBox{
-    display: flex;
-    width: 90%;
-    gap: 10%;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    /* justify-content: center; */
-    /* background-color: aliceblue; */
-    padding: 30px;
-}
-.btn-pop{
-    padding: 10px;
-    border: none;
-    background-color: skyblue;
-    color: white;
-    border-radius: 5px;
-    
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  cursor: pointer;
 }
 
-.inputBoxTitle{
-    border: none;
-    padding: 10px;
-    width: 300px;
-    border-radius: 10px;
-}
-.imagcls{
-    position: relative;
-    width: 80%;
-    height: 80%;
-    border-radius: 20px;
-    border: 5px solid white;
-}
-.contentbut{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 10px;
+.colored {
+  color: gold;
+  transition: color 0.3s ease;
 }
 
-.btn-pop:hover{
-    color: skyblue;
-    background-color: white;
-}
-.genratingImage{
-    display: flex;
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.95);
-    width: 80%;
-    border-radius: 20px;
-    margin-left: -200px;
-    height: 80%;
-    gap: 20px;
-
+/* Generated box layout */
+.genratedBox {
+  display: flex;
+  width: 90%;
+  gap: 10%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
 }
 
+/* Popup button */
+.btn-pop {
+  padding: 10px;
+  border: none;
+  background-color: skyblue;
+  color: white;
+  border-radius: 5px;
+}
+
+.inputBoxTitle {
+  border: none;
+  padding: 10px;
+  width: 300px;
+  border-radius: 10px;
+}
+
+.imagcls {
+  position: relative;
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  border: 5px solid white;
+}
+
+.contentbut {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.btn-pop:hover {
+  color: skyblue;
+  background-color: white;
+}
+
+/* Image generation loading state */
+.genratingImage {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.95);
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  gap: 20px;
+}
+
+/* Options styling for input fields and selects */
 .options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 20px 0;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
 
-  .options div {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  
-  .options label {
-    font-size: 14px;
-    font-weight: 500;
-    color:white;
-    cursor: pointer;
-  }
-  
-  .options select, 
-  .options input[type="text"] {
-    width: 100%;
-    padding: 8px 10px;
-    margin-top: 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-  }
-  
-  .options select:focus, 
-  .options input[type="text"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-  
-  @media (max-width: 768px) {
-    .options {
-      margin: 15px 0;
-    }
-  
-    .options label {
-      font-size: 14px;
-    }
-  
-    .options select, 
-    .options input[type="text"] {
-      font-size: 13px;
-      padding: 6px 8px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .options {
-      gap: 8px;
-    }
-  
-    .options label {
-      font-size: 12px;
-    }
-  
-    .options select, 
-    .options input[type="text"] {
-      font-size: 12px;
-      padding: 5px 7px;
-    }
-  }
-  
+.options div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 
+.options label {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+}
 
+.options select,
+.options input[type="text"] {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
 
+.options select:focus,
+.options input[type="text"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .main-LandingBody {
-        flex-direction: column; 
-        align-items: center;
-    }
+  .main-LandingBody {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
 
-    .firstpart, .secondPart {
-        width: 100%; 
-        height: auto; 
-    }
+  .firstpart, .secondPart {
+    width: 100%;
+    height: auto;
+  }
 
-    .imageContainer {
-        width: 100%; 
-    }
+  .imageContainer {
+    width: 100%;
+  }
+
+  .genratedBox {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem 1rem;
+  }
+
+  .inputBoxTitle {
+    width: 80%;
+  }
+
+  .imagcls {
+    width: 90%;
+    height: 90%;
+  }
 }
 
 @media (max-width: 480px) {
-    .firstpart > h1 {
-        font-size: 2rem; 
-    }
-    
-    .secondPart {
-        flex-direction: column;
-    }
+  .firstpart > h1 {
+    font-size: 1.5rem;
+  }
 
-    .imageContainer {
-        width: 90%;
-    }
+  .secondPart {
+    flex-direction: column;
+  }
+
+  .imageContainer {
+    width: 90%;
+  }
+
+  .genratedBox {
+    padding: 1rem;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .inputBoxTitle {
+    width: 90%;
+  }
+
+  .imagcls {
+    width: 100%;
+    height: 100%;
+  }
+
+  .StarDiv {
+    font-size: 24px;
+  }
 }

@@ -1,62 +1,139 @@
-.mainAuth{
+/* Main container for the Auth page */
+.mainAuth {
     display: flex;
-    /* background-color: rgb(75, 71, 66); */
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 4rem;
     color: skyblue;
-
+    min-height: 100vh;
+    background-color: #1e1e1e; /* Optional: Add a background color for better contrast */
 }
 
-.parentSiv{
+/* Parent div styling */
+.parentDiv {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-.formMain{
-    background-color:  #282c34;
+/* Form container styling */
+.formMain {
+    background-color: #282c34;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
     align-items: center;
     justify-content: center;
-    padding: 3rem;
+    padding: 2rem;
     border-radius: 1rem;
-    width: 500px;
-    gap: 2rem;
-    
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.formMain input{
+/* Input fields styling */
+.formMain input {
     background-color: transparent;
     border: 1px solid skyblue;
     border-radius: 1rem;
-    padding: 1.5rem;
+    padding: 1rem;
     width: 100%;
+    font-size: 1rem;
+    color: white;
 }
 
 .formMain input::placeholder {
-    color: white; 
-  
-    
+    color: white;
+    opacity: 0.8;
 }
-
 
 .formMain input:focus,
 .formMain input:active {
-    border-color: white; 
-    background-color: skyblue; 
+    border-color: white;
+    background-color: skyblue;
+    color: #000;
+    outline: none;
 }
 
-.submitHandel{
-    width: 90%;
-    padding: 1rem 2rem;
-    background-color:skyblue;
+/* Submit button styling */
+.submitHandel {
+    width: 100%;
+    padding: 1rem;
+    background-color: skyblue;
     font-weight: bold;
     color: white;
     border-radius: 1rem;
     border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submitHandel:hover {
+    background-color: #3b82f6;
+}
+
+/* Note message styling */
+.notemsg {
+    font-size: 0.9rem;
+    color: white;
+}
+
+.notemsg span {
+    color: skyblue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .formMain {
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+
+    .formMain input {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .submitHandel {
+        padding: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mainAuth {
+        padding: 2rem;
+    }
+
+    .formMain {
+        padding: 1rem;
+        width: 100%;
+    }
+
+    .formMain input {
+        padding: 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .submitHandel {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .notemsg {
+        font-size: 0.8rem;
+    }
 }
