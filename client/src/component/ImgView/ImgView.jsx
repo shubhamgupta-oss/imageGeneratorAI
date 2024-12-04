@@ -91,9 +91,10 @@ const ImgView = () => {
             <div className="ImgDetails">
                 <h1>{data.image.title}</h1>
                 <div className="inerImgInfo">
+                    
                     <span>{data.image.description || "Unknown"}</span> |
-                    <span>{data.user.user.name || "N/A"}</span> |
-                    <span>{data.image.size || "N/A"}</span>
+                    <span> {data.user.user.name || "N/A"}</span> |
+                    <span> Rating : {data.image.Rating || "N/A"}</span>
                 </div>
                 <div className="divButton">
                     <button onClick={handleShare}><IosShareIcon /> Share</button>
