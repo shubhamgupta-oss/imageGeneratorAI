@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './LandingBody.css';
-import '../DescribeCTA/DescribeCTA.css'
+// import '../DescribeCTA/DescribeCTA.css'
 import DisplayImage from "../DisplayImage/DisplayImage";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
