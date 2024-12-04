@@ -1,0 +1,38 @@
+/* NotFound.css */
+
+.NotFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    background-color: #f4f4f4;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+.NotFound h1 {
+    font-size: 4rem;
+    color: #e74c3c;
+    margin-bottom: 20px;
+}
+
+.NotFound p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.NotFound button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.NotFound button:hover {
+    background-color: #2980b9;
+}
